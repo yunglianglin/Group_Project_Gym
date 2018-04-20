@@ -1,0 +1,53 @@
+{%load staticfiles%}
+<html>
+  <head>
+    <title>智慧健身</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="shortcut icon" href="{%  static 'images/strong.png' %}">
+
+    <script type = "text/javascript" src="{% static 'js/d3.js' %}" charset="utf-8"></script>
+    <script type = "text/javascript" src="{% static 'js/d3.layout.cloud.js' %}"></script>
+    <script type = "text/javascript" src="{% static 'js/d3.wordcloud.js' %}"></script>
+  </head>
+    
+    <!-- Navbar (sit on top) -->
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+        <a href="base.html" class="w3-bar-item w3-button"><b>智慧健身</b>  給我數據 讓你巨巨</a>
+        <div class="w3-right w3-hide-small">
+            <a href="base.html#topics" class="w3-bar-item w3-button">健身房熱議話題</a>
+            <a href="base.html#keyword" class="w3-bar-item w3-button">瘋健身關鍵字</a>
+            <a href="/gym/buzz" class="w3-bar-item w3-button">健身房網路口碑</a>
+            <a href="report.html" class="w3-bar-item w3-button">我的健身報告</a>
+        </div>
+    </div>
+    
+  <body style="text-align: center">
+    <h1>健身熱議關鍵字 </h1> <h2>{{from_date}} ~ {{to_date}}</h2>  
+
+    <div id='wordcloud'></div>
+
+  <script>
+    var word_list = []; 
+
+    {%for wd in words%}
+        var dict = {}
+        dict = { 'text': '{{wd.word}}', 'size': {{wd.freq}} }
+        word_list.push(dict);
+    {%endfor%}    
+
+
+    d3.wordcloud()
+        .size([1000, 600])
+        .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+        .words(word_list)
+        .onwordclick(function(d, i) {
+          if (d.href) { window.location = d.href; }
+        })
+        .start();
+  </script>
+</body>
+</html>
+
+

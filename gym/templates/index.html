@@ -1,0 +1,609 @@
+{% load staticfiles %} 
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>智慧健身</title>  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="shortcut icon" href="{%  static 'images/strong.png' %}">  
+
+
+      
+    <!-- Bootstrap core CSS -->
+    <link href="min.css" rel="stylesheet">
+
+<!--   ... -->
+  <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+      
+      
+<!--     Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+</head>
+
+
+
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="/gym/base.html" class="w3-bar-item w3-button"><b>智慧健身</b>  給我數據 讓你巨巨</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+        <a href="/gym/base.html#topics" class="w3-bar-item w3-button">健身房熱議話題</a>
+        <a href="/gym/base.html#keyword" class="w3-bar-item w3-button">瘋健身關鍵字</a>
+        <a href="/gym/buzz" class="w3-bar-item w3-button">健身房網路口碑</a>
+        <a href="/gym/report.html" class="w3-bar-item w3-button">我的健身報告</a>
+    </div>
+  </div>
+</div>
+
+    
+
+<div class="container-fluid">
+    <h1>
+        <p align="center"></p>  
+    </h1>
+    
+</div>
+
+<div class="container-fluid">
+    <h1>
+        
+    </h1>    
+    <h2>
+        
+        <p align="center">健身房網路口碑</p>  
+    </h2>
+
+</div>    
+      
+      <style>
+      /* Style the tab */
+.tab, .tab_2 {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button, .tab_2 button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button, .tab_2 button :hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active, .tab_2 button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent, .tabcontent_2 {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+          
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+/*    transition: background-color .3s;*/
+/*    border: 1px solid #ddd;*/
+}
+
+/*
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+*/
+
+.pagination a:hover:not(.active) {background-color: #aca;}
+          
+
+
+      </style>
+  <div class="w3-content w3-padding" style="max-width:1564px">     
+        <!--Dashboard-->
+        <form action='/gym/getResult/' method="get">   
+        {%csrf_token%}
+        <span>    
+            <select id="sel" name="time">
+            <option>請選擇時間段</option>
+            <option>近一週</option>
+            <option>近一個月</option>
+            <option>近三個月</option>
+            <option>近半年</option>
+            <option>近一年</option>
+            <option>近兩年</option>
+            </select>
+        </span>
+        <span> 
+            <select id="sel" name='brand'>
+                <option>請選擇主要品牌</option>
+                <option>World Gym</option>
+                <option>健身工廠</option>
+                <option>True Fitness</option>
+                <option>運動中心</option>
+                <option>統一健身俱樂部</option>
+                <option>curves</option>
+                <option>SpaceCycle</option>
+                <option>極限健身</option>
+                <option>成吉思汗</option>
+                <option>AnytimeFitness</option>
+            </select>
+        </span>
+        <span>
+            <select id="sel" name='combrand'>
+                <option>請選擇競品品牌</option>    
+                <option>World Gym</option>
+                <option>健身工廠</option>
+                <option>True Fitness</option>
+                <option>運動中心</option>
+                <option>統一健身俱樂部</option>
+                <option>curves</option>
+                <option>SpaceCycle</option>
+                <option>極限健身</option>
+                <option>成吉思汗</option>
+                <option>AnytimeFitness</option>
+            </select>
+        </span>
+        <span class="sendbutton">
+            <input type="submit" value="查詢報告" >
+        </span>
+    </form>
+
+      
+<!--
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">健身房品牌網路口碑</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+-->
+
+<!--
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+-->
+
+            
+           
+
+        {% if brand %} 
+        <!-- Tab links -->
+        <div class="tab">
+          <button class="tablinks" onclick="openBrand(event, 'brand')" id="defaultOpen">{{ brand }} </button>
+          <button class="tablinks" onclick="openBrand(event, 'combrand')">{{ combrand }} </button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="brand" class="tabcontent">
+            <canvas id="doughnutChart_mainbrand"></canvas>
+            <!--  Tab for table-->
+            <div class="tab_2">
+                <button class="tablinks_2" onclick="openComment(event, 'negative')" id="defaultOpen_2">負面評論</button>
+                <button class="tablinks_2" onclick="openComment(event, 'neutral')">正面評論 </button>
+                <button class="tablinks_2" onclick="openComment(event, 'positive')">中立評論</button>
+            </div>
+            <!--  Tab for table content-->
+            <div id="negative" class="tabcontent_2">
+
+            <table>
+                <tr>
+                    <th>評論日期</th>
+                    <th>評論內容</th>
+                </tr>
+
+                {% for comment_na, date_post_na in rows_na %}
+                <tr>
+                    <td>{{date_post_na}}</td>
+                    <td>{{comment_na}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="pagination container"> 
+                <a href="#">❮</a>
+                <a href="#">❯</a>
+            </div>  
+                
+            
+            </div>    
+            
+            <div id="neutral" class="tabcontent_2">
+            <table>
+                <tr>
+                    <th>評論日期</th>
+                    <th>評論內容</th>
+                </tr>
+                {% for comment_ne, date_post_ne in rows_ne %}
+                <tr>    
+                    <td>{{date_post_ne}}</td>
+                    <td>{{comment_ne}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+                <div class="pagination container"> 
+                <a href="#">❮</a>
+                <a href="#">❯</a>
+            </div>  
+            </div> 
+            
+            <div id="positive" class="tabcontent_2">
+            <table>
+                <tr>
+                    <th>評論日期</th>
+                    <th>評論內容</th>
+                </tr>
+                {% for comment_p, date_post_p in rows_p %}
+                <tr>
+                    <td>{{date_post_p}}</td>
+                    <td>{{comment_p}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+                <div class="pagination container"> 
+                <a href="#">❮</a>
+                <a href="#">❯</a>
+            </div>  
+            </div> 
+            
+            
+        </div>
+
+        <div id="combrand" class="tabcontent">
+            <canvas id="doughnutChart_combrand"></canvas>
+            <!--  Tab for table combrand-->
+            <div class="tab_3">
+                <button class="tablinks_3" onclick="openCommentComBrand(event, 'negative_combrand')" id="defaultOpen_3">負面評論</button>
+                <button class="tablinks_3" onclick="openCommentComBrand(event, 'neutral_combrand')">正面評論 </button>
+                <button class="tablinks_3" onclick="openCommentComBrand(event, 'positive_combrand')">中立評論</button>
+            </div>
+            <!--  Tab for table content-->
+            <div id="negative_combrand" class="tabcontent_3">
+
+            <table>
+                <tr>
+                    <th>評論日期</th>
+                    <th>評論內容</th>
+                </tr>
+
+                {% for combrand_comment_na, combrand_date_post_na in combrand_rows_na %}
+                <tr>
+                    <td>{{combrand_date_post_na}}</td>
+                    <td>{{combrand_comment_na}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="pagination container"> 
+                <a href="#">❮</a>
+                <a href="#">❯</a>
+            </div>  
+                
+            
+            </div>    
+            
+            <div id="neutral_combrand" class="tabcontent_3">
+            <table>
+                <tr>
+                    <th>評論日期</th>
+                    <th>評論內容</th>
+                </tr>
+                {% for combrand_comment_ne, combrand_date_post_ne in combrand_rows_ne %}
+                <tr>    
+                    <td>{{combrand_date_post_ne}}</td>
+                    <td>{{combrand_comment_ne}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+                <div class="pagination container"> 
+                <a href="#">❮</a>
+                <a href="#">❯</a>
+            </div>  
+            </div> 
+            
+            <div id="positive_combrand" class="tabcontent_3">
+            <table>
+                <tr>
+                    <th>評論日期</th>
+                    <th>評論內容</th>
+                </tr>
+                {% for combrand_comment_p, combrand_date_post_p in combrand_rows_p %}
+                <tr>
+                    <td>{{combrand_date_post_p}}</td>
+                    <td>{{combrand_comment_p}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+                <div class="pagination container"> 
+                <a href="#">❮</a>
+                <a href="#">❯</a>
+            </div>  
+            </div> 
+        </div>
+        {% else %}     
+        <canvas class="my-4" id="myChart_total" width="900" height="380"></canvas>
+        {% endif %}
+</div>
+        
+        
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../../../dist/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+    //所有健身房口碑量曲線圖
+      var ctx = document.getElementById("myChart_total");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["30天", "60天", "90天", "120天", "150天", "180天", "210天","240天","270天天","300天","330天"],
+          datasets: [{
+            data: [{{period_count1}},{{period_count2}}, {{period_count3}}, {{period_count4}}, {{period_count5}}, {{period_count6}}, {{period_count7}},{{period_count8}},{{period_count9}},{{period_count10}},{{period_count11}}],
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>
+            
+            
+        
+    <script>
+    //品牌的口碑量曲線圖
+      var ctx = document.getElementById("myChart_brand");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["30天", "60天", "90天", "120天", "150天", "180天", "210天","240天","270天天","300天","330天"],
+          datasets: [{
+            data: [{{period_count1}},{{period_count2}}, {{period_count3}}, {{period_count4}}, {{period_count5}}, {{period_count6}}, {{period_count7}},{{period_count8}},{{period_count9}},{{period_count10}},{{period_count11}}],
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>        
+    
+    <script>
+    //doughnut
+    var ctxD = document.getElementById("doughnutChart_mainbrand").getContext('2d');
+    var myLineChart = new Chart(ctxD, {
+        type: 'doughnut',
+        data: {
+            labels: ["好評", "中立", "負評"],
+            datasets: [
+                {
+                    data: [{{ world_gym_positive }}, {{ world_gym_n }}, {{ world_gym_negative }}],
+                    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C"],
+                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870"]
+                }
+            ]
+        },
+        options: {
+            responsive: true
+        }    
+    });  
+    </script>  
+    <script>
+    //doughnut_combrand
+    var ctxD = document.getElementById("doughnutChart_combrand").getContext('2d');
+    var myLineChart = new Chart(ctxD, {
+        type: 'doughnut',
+        data: {
+            labels: ["好評", "中立", "負評"],
+            datasets: [
+                {
+                    data: [{{ combrand_positive }}, {{ combrand_n }}, {{ combrand_negative }}],
+                    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C"],
+                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870"]
+                }
+            ]
+        },
+        options: {
+            responsive: true
+        }    
+    });  
+    </script>  
+    <script>
+    //tab
+    function openBrand(evt, brandName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(brandName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+    </script> 
+    <script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    </script>
+    
+    <script>
+    //tab_2
+    function openComment(evt, emotionType) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent_2");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks_2");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(emotionType).style.display = "block";
+        evt.currentTarget.className += " active";
+        
+
+    }
+
+    </script>
+    <script>
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen_2").click();
+    </script>
+        
+    <script>
+    //tab_3
+    function openCommentComBrand(evt, emotionType) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent_3");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks_3");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(emotionType).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    </script>
+    <script>
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen_3").click();
+    </script>
+            
+    
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!--
+<script>
+    
+    if (typeof {{ combrand_positive }} !== 'undefined' && {{ combrand_positive }}  !== null){
+        $('#doughnutChart_combrand').show();
+        $('#doughnutChart_mainbrand').show();
+    } else{
+        $('#doughnutChart_combrand').hide();
+        $('#doughnutChart_mainbrand').hide();
+    }
+    {% if combrand_positive %}
+            $('#doughnutChart_combrand').show();
+            $('#doughnutChart_mainbrand').show();
+    {% endif %}
+</script>
+-->
+  </body>
+</html>

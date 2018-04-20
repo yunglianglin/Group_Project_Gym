@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SYNQ.fm Fullscreen Video Sample</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+    <video loop muted autoplay playsinline poster="https://media.giphy.com/media/26Ff43GwoaAks9XgY/giphy.gif">
+        <source src="https://multicdn.synq.fm/projects/24/19/2419e41be6e04824a8f5019076bf61fe/derivatives/videos/8c/41/8c4179f509914ee8a1906193db830756/mp4_720/8c4179f509914ee8a1906193db830756_mp4_720.mp4" type="video/mp4">
+        <source src="https://multicdn.synq.fm/projects/24/19/2419e41be6e04824a8f5019076bf61fe/derivatives/videos/8c/41/8c4179f509914ee8a1906193db830756/webm_720/8c4179f509914ee8a1906193db830756_webm_720.webm" type="video/webm">
+    </video>
+    <div class="banner">
+       <div class="banner-text">
+          Header Text Here
+       </div>
+    </div>
+  </header>
+  <section>
+  Some Content
+  </section>
+  <footer>
+    <div>
+      &copy; Copyright SYNQ.fm Inc.
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+body { background: #0f0f0f; }
+
+header {
+ position: relative;
+ height: 500px;
+ min-height: 500px;
+ width: 100%;
+ background-size: cover !important;
+ -webkit-background-size: cover !important;
+ text-align: center;
+ overflow: hidden;
+}
+
+header video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -100;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+header:before {
+ content: '';
+ display: inline-block;
+ vertical-align: middle;
+ height: 100%;
+}
+
+header .banner {
+ display: inline-block;
+ vertical-align: center;
+ margin: 0 auto;
+ width: 85%;
+ padding-bottom: 30px;
+ text-align: center;
+ font:24px 'opensans-bold', sans-serif;
+ font-weight: bold;
+}
+
+header .banner-text {
+ color: #f5f5f5;
+ width: 100%;
+}
+
+section {
+ background: #2B2B2B;
+ padding-top: 96px;
+ padding-bottom: 66px;
+ overflow: hidden;
+ color:#fff;
+ text-align: center;
+}
+
+footer {
+ position: relative;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ padding: 1rem;
+ background-color: #0f0f0f;
+ text-align: center;
+ color:#fff;
+ text-align: center;
+}
+</style>    

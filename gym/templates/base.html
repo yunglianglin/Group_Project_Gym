@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+{% load staticfiles %}  
+<html>
+<title>智慧健身</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="shortcut icon" href="{%  static 'images/strong.png' %}">
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="#home" class="w3-bar-item w3-button"><b>智慧健身</b>  給我數據 讓你巨巨</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#topics" class="w3-bar-item w3-button">健身房熱議話題</a>
+      <a href="#keyword" class="w3-bar-item w3-button">瘋健身關鍵字</a>
+      <a href="/gym/buzz" class="w3-bar-item w3-button">健身房網路口碑</a>
+      <a href="report.html" class="w3-bar-item w3-button">我的健身報告</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+
+  <img class="w3-image mySlides" src="{% static 'images/home_page.jpg' %}" alt="Architecture" width="1500" height="800">
+<!--  <img class="w3-image mySlides" src="{% static 'images/home_page_1.jpg' %}" alt="Architecture" width="1500" height="800">-->
+  <img class="w3-image mySlides" src="{% static 'images/home_page_3.jpg' %}" alt="Architecture" width="1500" height="800">
+  <img class="w3-image mySlides" src="{% static 'images/home_page_2.jpg' %}" alt="Architecture" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>SMART GYM</b></span> <span class="w3-hide-small w3-text-light-grey">NO LIMIT</span></h1>
+  </div>
+   
+
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+  <!-- Project Section -->
+  <div class="w3-container w3-padding-32" id="topics">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">健身房熱議話題</h3>
+  </div>
+
+  <div class="w3-row-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <a href="WG_LDA.html">
+        <div class="w3-display-topleft w3-black w3-padding">世界健身</div>
+        <img src="{% static 'images/WG.jpg' %}" alt="House" style="width:99%">
+        </a>
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <a href="GF_LDA.html">  
+        <div class="w3-display-topleft w3-black w3-padding">健身工廠</div>
+        <img src="{% static 'images/GF.jpg' %}" alt="House" style="width:99%">
+        </a>
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <a href="EX_LDA.html">
+        <div class="w3-display-topleft w3-black w3-padding">極限健身</div>
+        <img src="{% static 'images/EX.jpg' %}" alt="House" style="width:99%">
+        </a>
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <a href="TF_LDA.html">
+        <div class="w3-display-topleft w3-black w3-padding">全真健身</div>
+        <img src="{% static 'images/TF.jpg' %}" alt="House" style="width:99%">
+        </a>    
+      </div>
+    </div>
+  </div>
+
+  <!-- Topics Section -->
+  <div class="w3-container w3-padding-32" id="keyword">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">瘋健身關鍵字</h3>
+  </div>
+
+      
+  <div class="w3-row-padding ">
+    <form action="/gym/date" method="get">
+        {%csrf_token%}
+        <div class="w3-col l3 m6 form-style-2"  >
+            <label for="from_date"><span>熱議起始日<span class="required">*</span></span><input type="text" class= "input-field" name="from_date" placeholder="YYYY-MM-DD" /></label>                 
+        </div>
+
+        <div class="w3-col l3 m6 form-style-2" >
+            <label for="to_date"><span>熱議結束日<span class="required">*</span></span><input type="text" class= "input-field" name="to_date" placeholder="YYYY-MM-DD" /></label>      
+            
+        </div>
+        <div class="w3-col l3 m6 form-style-2" align="left" >
+            <input type="submit" value="搜尋" >
+        </div>     
+      </form>
+  </div>
+
+    
+<!--   Contact Section -->
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">聯絡我們</h3>
+    <form action="/action_page.php" target="_blank">
+      <input class="w3-input" type="text" placeholder="名字" required name="Name">
+      <input class="w3-input w3-section" type="text" placeholder="電子信箱" required name="Email">
+      <input class="w3-input w3-section" type="text" placeholder="主題" required name="Subject">
+      <input class="w3-input w3-section" type="text" placeholder="評論" required name="Comment">
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-paper-plane"></i> 提交評論
+      </button>
+    </form>
+  </div>
+      
+
+    
+ </div>
+
+
+                
+
+<style>
+.form-style-2{
+    max-width: 500px;
+    padding: 20px 12px 10px 20px;
+    font: 17px Arial, Helvetica, sans-serif;
+}
+.form-style-2-heading{
+    font-style: italic;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 15px;
+    padding-bottom: 3px;
+}
+.form-style-2 label{
+    display: block;
+    margin: 0px 0px 15px 0px;
+}
+.form-style-2 label > span{
+    width: 100px;
+    float: left;
+    padding-top: 8px;
+    padding-right: 5px;
+}
+.form-style-2 span.required{
+    color:#aaa;
+}
+
+.form-style-2 input.input-field, .form-style-2 {
+    width: 70%; 
+}
+.form-style-2 input.input-field{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #C2C2C2;
+    box-shadow: 1px 1px 4px #EBEBEB;
+    -moz-box-shadow: 1px 1px 4px #EBEBEB;
+    -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 7px;
+    outline: none;
+}
+.form-style-2 .input-field:focus{
+    border: 1px solid #fff;
+}
+
+.form-style-2 input[type=submit]{
+    border: none;
+    padding: 8px 20px 8px 20px;
+    background: #aaa;
+    color: #fff;
+    box-shadow: 1px 1px 4px #DADADA;
+    -moz-box-shadow: 1px 1px 4px #DADADA;
+    -webkit-box-shadow: 1px 1px 4px #DADADA;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+.form-style-2 input[type=submit]:hover{
+    background: #ddd;
+    color: #fff;
+}    
+
+</style>
+
+ 
+    
+    
+    
+
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">智慧健身</a></p>
+</footer>
+
+<!-- SlideShow -->    
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
+
+
+
+</body>
+</html>
